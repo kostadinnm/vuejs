@@ -1,0 +1,77 @@
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+    Vue.prototype.vuemit = Vue.prototype.$emit;
+    Vue.prototype.vuon = Vue.prototype.$on;
+</script>
+
+<html>
+    <title>Vue.js guide - components(...)</title>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="vueguide-components2.css">
+    </head>
+    <body>
+        <div id="example-1" style="border-bottom: 1px solid black">
+            Child:<child-component></child-component> |
+            Child with passed inline content:<child-component>Hello, child!</child-component> |
+            Child with passed bound content:<child-component>{{message}}</child-component>
+            <app-layout>
+                <h1 slot="header">Here might be a page title</h1>
+                <p>A paragraph for the main content.</p>
+                <p>And another one.</p>
+                <p slot="footer">Here's some contact info</p>
+            </app-layout>
+            <div class="parent">
+                <child>
+                    <template slot-scope="props">
+                        <span>hello from parent</span>
+                        <span>{{ props.text }}</span>
+                    </template>
+                </child>
+            </div>
+            <div>
+                <my-awesome-list v-bind:items="items">
+                    <li slot="item" slot-scope="ss" class="my-fancy-item">
+                        {{ ss.desc }}({{ss.prior}})
+                    </li>
+                </my-awesome-list>
+                <!-- Some ES6 destructuring feature: -->
+                <!-- <my-awesome-list v-bind:items="items">
+                        <li slot="item" slot-scope="{desc, prior}" class="my-fancy-item">
+                            {{desc}}({{prior}})
+                        </li>
+                </my-awesome-list> -->
+            </div>
+        </div>
+        <div id="example-2" style="border-bottom: 1px solid black">
+            <div class="tab">
+                <button v-on:click="showHome" v-bind:class="{active: home}">Home</button>
+                <button v-on:click="showPosts" v-bind:class="{active: posts}">Posts</button>
+                <button v-on:click="showArchive" v-bind:class="{active: archive}">Archive</button>
+                <button v-on:click="showThirdParty" v-bind:class="{active: tp}">Affiliate</button>
+                <button v-on:click="showAbout" v-bind:class="{active:ab}">About</button>
+            </div>
+            <keep-alive>
+                <component v-bind:is="currentView"></component>
+            </keep-alive>
+        </div>
+        <div id="example-3" style="border-bottom: 1px solid black">
+            <simple-slideshow v-bind:caption="items[selected].name" v-bind:src="items[selected].image"
+                v-on:go-left="slideLeft" v-on:go-right="slideRight">
+                <h2 slot="title">Slideshow of web technologies</h2>
+            </simple-slideshow>
+        </div>
+        <div id="example-4" style="border-bottom: 1px solid black">
+            <some-comp some-prop="demo" ref="sc" v-on:click.native="switchBackground"></some-comp>
+            <ol v-if="items.length">
+                <tech-item v-for="tech in items" v-bind="tech" v-bind:key="tech.id"
+                    ref="techs" v-on:click.native="highlight(tech.id)"></tech-item>
+            </ol>
+        </div>
+        <div id="example-5" style="border-bottom: 1px solid black">
+            <async-example></async-example>
+        </div>
+    </body>
+    <script src="vueguide-components2.js"></script>
+</html>

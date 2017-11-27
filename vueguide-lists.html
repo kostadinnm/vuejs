@@ -1,0 +1,85 @@
+<script src="https://unpkg.com/vue"></script>
+<script>
+    Vue.prototype.vuemit = Vue.prototype.$emit;
+</script>
+
+<html>
+    <title>Vue.js guide - lists</title>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+
+        <ul id="example-1">
+            <li v-for="item in items">
+                {{ item.message }}
+            </li>
+        </ul>
+
+        <ul id="example-2">
+            <li v-for="(item, index) in items">
+                {{ parentMessage }} - {{ index }} - {{ item.message }}
+            </li>
+        </ul>
+
+        <ul id="v-for-object" class="demo">
+            <li v-for="(value, key, index) in object">
+                {{ index }}. {{ key }}: {{ value }}
+            </li>
+        </ul>
+        <!-- TODO: report that bulshit   -->
+        <!-- <div v-for="(value, key) in object">
+            {{ key }}: {{ value }}
+        </div> -->
+        <!-- <div v-for="(value, key, index) in object">
+            {{ index }}. {{ key }}: {{ value }}
+        </div> -->
+
+        <ul id="example-filtered">
+            <li v-for="n of even(numbers)">{{ n }}</li>
+        </ul>
+
+        <!-- TODO: report missing id -->
+        <div id="example-range">
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+        
+        <ul id="example-template">
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>
+                <li class="divider" style="list-style:none; border-bottom: 1px solid black;"></li>
+            </template>
+        </ul>
+
+        <div id="example-conditional">
+            <ul v-if="todos.length">
+                <li v-for="todo in todos" v-if="!todo.isComplete">
+                    {{ todo.text }}
+                </li>
+            </ul>
+            <p v-else>No todos left!</p>
+        </div>  
+
+        <div id="todo-list-example">
+            <input
+                v-model="newTodoText"
+                v-on:keyup.enter="addNewTodo"
+                placeholder="Add a todo">
+            <ul v-if="todos.length">
+                <li
+                    is="todo-item"
+                    v-for="(todo, index) in todos"
+                    v-bind:key="todo.id"
+                    v-bind:title="todo.title"
+                    v-on:remove="todos.splice(index, 1)"></li>
+            </ul>
+            <p v-else>No todos left!</p>
+        </div>
+
+    </body>
+
+
+<script src="vueguide-lists.js"></script>
+
+</html>

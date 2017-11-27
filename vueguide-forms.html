@@ -1,0 +1,122 @@
+<script src="https://unpkg.com/vue"></script>
+
+<html>
+    <title>Vue.js guide - forms</title>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <div id="example-1">
+            <div style="border-bottom: 1px solid black;">
+                <input v-model="message" placeholder="edit me">
+                <p>Message is {{ message }}</p>
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <span>Multiline message is:</span>
+                <p style="white-space: pre-line;">{{ multiMessage }}</p>
+                <textarea v-model="multiMessage" placeholder="add multiple lines"></textarea>
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <input type="checkbox" id="checkbox" v-model="checked">
+                <label for="checkbox">{{ checked }}</label>
+            </div>
+        </div>
+        <div id="example-2">
+            <div style="border-bottom: 1px solid black;">
+                <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+                <label for="jack">Jack</label>
+                <input type="checkbox" id="john" value="John" v-model="checkedNames">
+                <label for="john">John</label>
+                <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+                <label for="mike">Mike</label>
+                <br>
+                <span>Checked names: {{ checkedNames }}</span>
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <input type="radio" id="one" value="One" v-model="picked">
+                <label for="one">One</label>
+                <input type="radio" id="two" value="Two" v-model="picked">
+                <label for="two">Two</label>
+                <br>
+                <span>Picked: {{ picked }}</span>
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <select v-model="selected">
+                    <option disabled value="">Please select one(without me -> iOS issue)</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+                <br>
+                <span>Selected: {{ selected }}</span>
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <select v-model="multiSelected" multiple>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+                <br>
+                <span>Selected: {{ multiSelected }}</span>
+            </div>
+        </div>
+        <div id="example-3">
+            <div style="border-bottom: 1px solid black;">
+                <select v-model="selected">
+                    <option v-for="option in options" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>
+                </select>
+                <br>
+                <span>Selected: {{ selected }}</span>
+            </div>
+        </div>
+        <div id="example-4">
+            <div style="border-bottom: 1px solid black;">
+                Check for {{ a }}, uncheck for {{ b }}:
+                <br>
+                <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">{{ toggle }}
+            </div>
+            <div style="border-bottom: 1px solid black;">
+                <input type="radio" id="one" v-model="pick" v-bind:value="x.theme">
+                <label for="one">Light</label>
+                <input type="radio" id="two" v-model="pick" v-bind:value="y.theme">
+                <label for="two">Dark</label>
+                <br>
+                <span>Picked: {{ pick }}</span>
+            </div>
+            <div style="border-bottom: 1px solid black">
+                <select v-model="selected">
+                    <!-- TODO: report the disabled field doesn't get selected -->
+                    <option disabled value="">Please select one</option>
+                    <option v-bind:value="{ number: 123 }">123</option>
+                    <option v-bind:value="{ number: 456 }">456</option>
+                    <option v-bind:value="{ number: 789 }">789</option>
+                </select>
+                <br>
+                <span>Object with number: {{ selected }}</span>
+            </div>
+        </div>
+        <div id="example-5">
+            <div style="border-bottom: 1px solid black;">
+                <div>
+                    <!-- lazy update on the underlying data(on focus out) -->
+                    <input v-model.lazy="msg">
+                    <!-- display trimmed, although the unterlying string may have prefacing and trailing spaces -->
+                    <span>Message(tab to see it): {{ msg }} </span>
+                </div>
+                <div>
+                    <!-- restrict to numeric data -->
+                    <input v-model.number="age" type="number" v-bind:min="12">
+                    <span>Age(min 12): {{ age }}</span>
+                </div>
+                <div>
+                    <!-- trim string data -->
+                    <input v-model.trim="text">
+                    <span>Text(trimmed): {{ text }}</span>
+                </div>
+            </div>
+        </div>
+    </body>
+<script src="vueguide-forms.js"></script>
+</html>

@@ -1,0 +1,99 @@
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+<script>
+    Vue.prototype.vuemit = Vue.prototype.$emit;
+    Vue.prototype.vuon = Vue.prototype.$on;
+    //this must be created later in the page cycle, so it's useless:
+    // console.log(Vue.$refs);
+    // Vue.prototype.vurefs = Vue.prototype.$refs;
+</script>
+
+<html>
+    <title>Vue.js guide - components(Props, attribs, events)</title>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <div id="example-1" style="border-bottom: 1px solid black;">
+            <my-component></my-component>
+        </div>
+        <div id="example-2" style="border-bottom: 1px solid black">
+            <my-component></my-component>
+        </div>
+        <div id="example-3" style="border-bottom: 1px solid black">
+            <simple-counter></simple-counter>
+            <simple-counter></simple-counter>
+            <simple-counter></simple-counter>
+        </div>
+        <div id="example-4" style="border-bottom: 1px solid black">
+            <child message="hello" message-description="how are you doing?"></child>
+            <br>
+            <input v-model="parentMsg"> - <input v-model="parentDesc">
+            <br>
+            <child v-bind:message="parentMsg" v-bind:message-description="parentDesc"></child>
+            <ol v-if="todos.length">
+                <todo-item v-for="todo in todos" v-bind="todo" v-bind:key="todo.id"></todo-item>
+            </ol>
+            <comp v-bind:some-prop="3"></comp>
+            <br>
+            <counter v-bind:initial-counter="5"></counter>
+            <to-the-power-of-2 value-raw="3"></to-the-power-of-2>
+        </div>
+        <div id="example-5" style="border-bottom: 1px solid black">
+            <example-comp v-bind:prop-a="numPropValue - 10" v-bind:prop-b="stringPropValue" v-bind:prop-c="stringPropValue"
+                v-bind:prop-f="numPropValue"></example-comp>
+            <br>
+            <bs-date-input data-3d-date-picker="true" id="dateInput1"></bs-date-input>
+            <button onclick="alert(document.getElementById('dateInput1').getAttribute('data-3d-date-picker'));">Is data 3d date picker?</button>
+            <bs-date-input class="date-picker-theme-dark" id="dateInput2"></bs-date-input>
+            <button onclick="alert('Classes: ' + document.getElementById('dateInput2').getAttribute('class'));">Report CSS?</button>
+        </div>
+        <div id="example-6" style="border-bottom: 1px solid black">
+            <div>{{ total }}</div>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+            <br>
+            <about-to-agree-comp v-on:mouseover.native="setAboutToAgree(true);" v-on:mouseout.native="setAboutToAgree(false);"
+                v-on:click.native="logClicked" v-on:input.native="logInput" v-on:change.native="logChanged"
+                v-on:toggle="toggleAgreed" ></about-to-agree-comp>
+                <!-- THIS IS WRONG AND GENERATES 'UNREACHABLE CODE'-WARNING: -->
+                <!-- v-on:toggle="agreed = !agreed; aboutToAgree = false;" ></about-to-agree-comp> -->
+            <button v-show="aboutToAgree || agreed" v-bind:disabled="!agreed">Proceed >></button>
+            <!-- <br>
+            Flip by checking any of these:
+            <input-comp v-on:click.native="toggleChecked();"></input-comp>
+            <input-comp v-on:change.native="toggleChecked"></input-comp>
+            <input-comp-templ v-on:inpcli="toggleChecked"></input-comp-templ>
+            <input-comp-templ v-on:inpcha="toggleChecked();"></input-comp-templ>
+            Checked: {{ checked }} -->
+        </div>
+        <div id="example-7" style="border-bottom: 1px solid black">
+            <!-- <sync-comp v-bind:foocount.sync="barcount"></sync-comp> -->
+            <comp-sync v-bind:foocount.sync="barcount"></comp-sync>
+            Count:{{barcount}}
+            <!-- <sync-comp v-bind:foocount="barcount" v-on:update:foocount="val => barcount = val"></sync-comp> -->
+            <comp-sync v-bind:foocount="countbar" v-on:update:foocount="val => countbar = val"></comp-sync>
+            Count:{{countbar}}
+        </div>
+        <div id="example-8" style="border-bottom: 1px solid black">
+            <div>
+                <currency-input v-model="price"></currency-input>
+            </div>
+            <input-currency label="Price" v-model="itemprice"></input-currency>
+            <input-currency label="Shipping" v-model="shipping"></input-currency>
+            <input-currency label="Discount" v-model="discount"></input-currency>
+            <p>Total: ${{total}}</p>
+            <div>
+                <my-checkbox v-model="agreed" v-bind:value="agreed ? 'Agreed' : 'Disagreed'"
+                    v-on:mouseover.native="setAboutToAgree(true);" v-on:mouseout.native="setAboutToAgree(false);"></my-checkbox>
+                <button v-show="aboutToAgree || agreed" v-bind:disabled="!agreed">Proceed >></button>
+            </div>
+        </div>
+        <div id="example-9" style="border-bottom: 1px solid black">
+            <new-todo></new-todo>
+            <todo-list></todo-list>
+        </div>
+    </body>
+    <script src="vueguide-components.js"></script>
+</html>

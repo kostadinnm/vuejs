@@ -1,0 +1,54 @@
+<script src="https://unpkg.com/vue"></script>
+
+<html>
+    <title>Vue.js guide - events</title>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+
+        <div id="example-1">
+            <button v-on:click="counter += 1">Add 1</button>
+            <p>The button above has been clicked {{ counter }} times.</p>
+        </div>
+
+        <div id="example-2">
+            <button v-on:click="greet">Greet</button>
+        </div>
+
+        <div id="example-3">
+            <button v-on:click="say('hi')">Say hi</button>
+            <button v-on:click="say('what')">Say what</button>
+            <!-- <form> -->
+                <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+            <!-- </form> -->
+        </div>
+
+        <div id="example-4" v-on:click.self="say('Clicked blank space in this example.')">
+            <form v-on:submit.prevent="say('Form submit halted.')"
+                  v-on:click.capture="say('Somthing in the form clicking.')">
+                <button v-on:click="say('Button clicked.')">Submit</button>
+            </form>
+        </div>
+
+        <div id="example-5">
+            <div @click.ctrl.exact="say('newtab')"
+                 @contextmenu="say('options')">
+                 Hit me with ctrl + mouse left OR mouse right.
+            </div>
+            <!-- <div @click.right="say('options')">
+                TODO: this doesn't work and triggers a warning
+                suggesting using @contextmenu, which works
+                </div> -->
+            <div @click.middle="say('newtab')">
+                I should be programable to do sth. on scroll button clicking,
+                but nothing's happening
+            </div>
+            
+        </div>
+    </body>
+
+<script src="vueguide-events.js"></script>
+
+</html>
